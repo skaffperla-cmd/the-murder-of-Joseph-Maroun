@@ -1,1 +1,582 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case JM-2026-0920 | Final Investigation Report</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --gold: #d6b777;
+  --light: #f3e9d6;
+  --muted: #b9ac95;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--light);
+  font-family: 'DM Sans', sans-serif;
+  background:
+    radial-gradient(ellipse at 12% 7%, #8c5c2a65, transparent 45%),
+    radial-gradient(ellipse at 90% 90%, #53391e65, transparent 45%),
+    linear-gradient(155deg, #211a16, #080d14 65%, #17120e);
+  background-attachment: fixed;
+}
+
+/* Detective desk atmosphere */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .25;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      #b18a4930 2px,
+      transparent 5px,
+      transparent 85px
+    );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, transparent 15%, #000b 100%);
+}
+
+main {
+  position: relative;
+  z-index: 2;
+  width: min(92%, 650px);
+  margin: 45px auto;
+}
+
+.panel {
+  background: rgba(10, 19, 29, .94);
+  border: 1px solid #b99b604d;
+  box-shadow:
+    0 20px 80px #000a,
+    inset 0 0 35px #d6b77708;
+  padding: 32px 25px;
+}
+
+.top {
+  text-align: center;
+  border-bottom: 1px solid #d6b77755;
+  padding-bottom: 23px;
+  margin-bottom: 26px;
+}
+
+.emblem {
+  font-family: Georgia, serif;
+  font-size: 35px;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.overline {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  line-height: 2;
+}
+
+h1, h2, h3 {
+  font-family: Cinzel, Georgia, serif;
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(21px, 5vw, 32px);
+  line-height: 1.5;
+  margin: 15px 0;
+}
+
+.case {
+  display: inline-block;
+  border: 1px solid #d6b77766;
+  padding: 9px 16px;
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.intro {
+  text-align: center;
+  color: #d3c9b9;
+  font-size: 14px;
+  line-height: 1.9;
+  margin-bottom: 30px;
+}
+
+.question {
+  margin: 30px 0;
+}
+
+.question h3 {
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: .8px;
+  line-height: 1.7;
+}
+
+.number {
+  color: #8f7853;
+  margin-right: 8px;
+}
+
+.suspect {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  margin: 9px 0;
+  border: 1px solid #d6b77730;
+  background: #ffffff05;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.suspect:has(input:checked) {
+  border-color: var(--gold);
+  background: #d6b77715;
+}
+
+input[type="radio"] {
+  accent-color: var(--gold);
+}
+
+input[type="text"], textarea {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: #060e17;
+  border: 1px solid #d6b77755;
+  border-radius: 0;
+  color: white;
+  font: inherit;
+  font-size: 14px;
+}
+
+textarea {
+  min-height: 115px;
+  resize: vertical;
+}
+
+input:focus, textarea:focus {
+  outline: 1px solid var(--gold);
+}
+
+button {
+  font-family: Cinzel, Georgia, serif;
+  cursor: pointer;
+}
+
+.submit {
+  width: 100%;
+  padding: 19px 10px;
+  margin-top: 15px;
+  background: linear-gradient(135deg, #e6cb91, #ad8746);
+  border: none;
+  color: #101720;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.submit:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+.error {
+  color: #ffb6a9;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 14px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 10px;
+  color: #a69a85;
+  letter-spacing: 1.5px;
+  margin-top: 25px;
+}
+
+#confirmation {
+  display: none;
+  text-align: center;
+}
+
+.check {
+  color: var(--gold);
+  font-size: 42px;
+  margin: 30px 0 10px;
+}
+
+#confirmation h2 {
+  font-size: 24px;
+  color: var(--gold);
+  line-height: 1.6;
+}
+
+#confirmation p {
+  line-height: 2;
+  color: #d3c9b9;
+  font-size: 14px;
+}
+
+.judge {
+  margin-top: 40px;
+  padding: 25px 5px;
+  border-top: 1px solid #d6b77755;
+  border-bottom: 1px solid #d6b77755;
+}
+
+.judge strong {
+  display: block;
+  font-family: Cinzel, Georgia, serif;
+  color: var(--gold);
+  font-size: 19px;
+  margin-top: 12px;
+}
+
+.quote {
+  font-family: Georgia, serif;
+  font-style: italic;
+  color: var(--gold) !important;
+  margin-top: 30px;
+}
+
+.music {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  border: 1px solid #d6b77766;
+  background: #101923ee;
+  color: var(--gold);
+  padding: 12px 15px;
+  font-size: 12px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+@media (max-width: 480px) {
+  main { margin: 20px auto 80px; }
+  .panel { padding: 26px 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<main>
+<section class="panel" id="report">
+
+  <header class="top">
+    <div class="emblem">⚖</div>
+    <div class="overline">
+      REPUBLIC OF LEBANON<br>
+      CRIMINAL INVESTIGATION DIVISION
+    </div>
+
+    <h1>THE MURDER OF<br>JOSEPH MAROUN</h1>
+
+    <div class="case">
+      CASE NO. JM-2026-0920
+    </div>
+
+    <h2 style="font-size:16px;margin-top:25px">
+      FINAL INVESTIGATION REPORT
+    </h2>
+  </header>
+
+  <p class="intro">
+    Detective Maroun, your investigation has come to an end.
+    Review the evidence and present your final conclusions.
+    Your report will be submitted for judicial review.
+  </p>
+
+  <form id="investigationForm">
+
+    <div class="question">
+      <h3><span class="number">01 /</span>
+        WHO MURDERED JOSEPH MAROUN?
+      </h3>
+
+      <label class="suspect">
+        <input type="radio" name="Murderer"
+          value="France Jabbour" required>
+        France Jabbour
+      </label>
+
+      <label class="suspect">
+        <input type="radio" name="Murderer"
+          value="Doris Kassab">
+        Doris Kassab
+      </label>
+
+      <label class="suspect">
+        <input type="radio" name="Murderer"
+          value="Perla Skaff">
+        Perla Skaff
+      </label>
+
+      <label class="suspect">
+        <input type="radio" name="Murderer"
+          value="Bernard Kassab">
+        Bernard Kassab
+      </label>
+
+      <label class="suspect">
+        <input type="radio" name="Murderer"
+          value="Tina Maroun">
+        Tina Maroun
+      </label>
+    </div>
+
+    <div class="question">
+      <h3><span class="number">02 /</span>
+        WHAT WAS THE MURDER WEAPON?
+      </h3>
+
+      <input type="text" name="Murder Weapon"
+        placeholder="Enter your conclusion..."
+        required>
+    </div>
+
+    <div class="question">
+      <h3><span class="number">03 /</span>
+        WHAT WAS THE MOTIVE?
+      </h3>
+
+      <textarea name="Motive"
+        placeholder="Explain the motive behind the crime..."
+        required></textarea>
+    </div>
+
+    <div class="question">
+      <h3><span class="number">04 /</span>
+        ADDITIONAL FINDINGS OR COMMENTS
+      </h3>
+
+      <textarea name="Additional Findings"
+        placeholder="Did you uncover anything else during your investigation?"></textarea>
+    </div>
+
+    <button class="submit" id="submitButton"
+      type="submit">
+      🔒 SEAL & SUBMIT REPORT
+    </button>
+
+    <div class="error" id="error"></div>
+
+  </form>
+
+  <div class="footer">
+    CONFIDENTIAL • FINAL INVESTIGATION
+  </div>
+</section>
+
+<section class="panel" id="confirmation">
+  <header class="top">
+    <div class="emblem">⚖</div>
+    <div class="overline">
+      REPUBLIC OF LEBANON<br>
+      CRIMINAL INVESTIGATION DIVISION
+    </div>
+    <h1>INVESTIGATION COMPLETE</h1>
+    <div class="case">CASE NO. JM-2026-0920</div>
+  </header>
+
+  <div class="check">✓</div>
+
+  <h2>FINAL REPORT<br>SUBMITTED</h2>
+
+  <p>
+    Your final investigation report has been
+    successfully submitted to the Court.
+  </p>
+
+  <p>
+    The presiding judge will carefully examine
+    the evidence, review your findings, and
+    determine whether your conclusions are
+    supported by the facts of the case.
+  </p>
+
+  <p>
+    The official verdict will be delivered
+    following judicial review.
+  </p>
+
+  <div class="judge">
+    <div class="overline">PRESIDING JUDGE</div>
+    <strong>The Honorable Perla Skaff</strong>
+  </div>
+
+  <p class="quote">Justice shall be served.</p>
+
+  <div class="footer">
+    CASE SEALED • AWAITING JUDICIAL VERDICT
+  </div>
+</section>
+</main>
+
+<button class="music" id="musicButton"
+  type="button">
+  ♪ Enable Investigation Music
+</button>
+
+<!-- YouTube player is hidden but controlled by JavaScript -->
+<div id="youtubePlayer"
+  style="position:fixed;width:1px;height:1px;
+  opacity:0;pointer-events:none;overflow:hidden">
+</div>
+
+<script>
+const FORM_ENDPOINT =
+  "https://formspree.io/f/moednjpl";
+
+const form = document.getElementById(
+  "investigationForm"
+);
+
+const submitButton = document.getElementById(
+  "submitButton"
+);
+
+const errorBox = document.getElementById("error");
+
+form.addEventListener("submit", async function(event) {
+  event.preventDefault();
+
+  submitButton.disabled = true;
+  submitButton.textContent = "SUBMITTING REPORT...";
+  errorBox.textContent = "";
+
+  try {
+    const response = await fetch(FORM_ENDPOINT, {
+      method: "POST",
+      body: new FormData(form),
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error("Submission unsuccessful");
+    }
+
+    document.getElementById("report").style.display =
+      "none";
+
+    document.getElementById("confirmation").style.display =
+      "block";
+
+    window.scrollTo(0, 0);
+
+  } catch (error) {
+    errorBox.textContent =
+      "Your report could not be submitted. " +
+      "Please check your connection and try again.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "🔒 SEAL & SUBMIT REPORT";
+  }
+});
+
+/* INVESTIGATION MUSIC */
+
+let player;
+let playerReady = false;
+let musicPlaying = false;
+
+const musicButton =
+  document.getElementById("musicButton");
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player("youtubePlayer", {
+    width: "200",
+    height: "200",
+    videoId: "MS6dhZc6uac",
+    playerVars: {
+      autoplay: 1,
+      controls: 0,
+      playsinline: 1,
+      loop: 1,
+      playlist: "MS6dhZc6uac"
+    },
+    events: {
+      onReady: function(event) {
+        playerReady = true;
+
+        // Attempt automatic playback.
+        event.target.playVideo();
+      },
+      onStateChange: function(event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+          musicPlaying = true;
+          musicButton.textContent =
+            "♫ Music Playing • Tap to Mute";
+        }
+
+        if (event.data === YT.PlayerState.PAUSED) {
+          musicPlaying = false;
+          musicButton.textContent =
+            "♪ Play Investigation Music";
+        }
+      },
+      onAutoplayBlocked: function() {
+        musicButton.textContent =
+          "♪ Tap to Start Investigation Music";
+      }
+    }
+  });
+}
+
+function startMusic() {
+  if (!playerReady || !player) return;
+
+  player.unMute();
+  player.setVolume(65);
+  player.playVideo();
+}
+
+musicButton.addEventListener("click", function() {
+  if (!playerReady) return;
+
+  if (musicPlaying) {
+    player.pauseVideo();
+  } else {
+    startMusic();
+  }
+});
+
+// If autoplay is blocked, the first interaction
+// anywhere on the page will attempt to start music.
+document.addEventListener("pointerdown", function() {
+  if (!musicPlaying) startMusic();
+}, { once: true });
+
+const youtubeScript = document.createElement("script");
+youtubeScript.src =
+  "https://www.youtube.com/iframe_api";
+document.head.appendChild(youtubeScript);
+</script>
+
+</body>
+</html>
+
