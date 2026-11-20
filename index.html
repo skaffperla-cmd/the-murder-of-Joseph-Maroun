@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Case JM-2026-0920 | Final Investigation Report</title>
+<title>The Murder of Joseph Maroun | Final Investigation</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap');
@@ -12,7 +12,6 @@
 :root {
   --gold: #d6b777;
   --light: #f3e9d6;
-  --muted: #b9ac95;
 }
 
 * { box-sizing: border-box; }
@@ -22,28 +21,19 @@ body {
   min-height: 100vh;
   color: var(--light);
   font-family: 'DM Sans', sans-serif;
-  background:
-    radial-gradient(ellipse at 12% 7%, #8c5c2a65, transparent 45%),
-    radial-gradient(ellipse at 90% 90%, #53391e65, transparent 45%),
-    linear-gradient(155deg, #211a16, #080d14 65%, #17120e);
-  background-attachment: fixed;
-}
 
-/* Detective desk atmosphere */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .25;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      transparent 0px,
-      #b18a4930 2px,
-      transparent 5px,
-      transparent 85px
-    );
+  /* Detective photograph */
+  background-color: #14110f;
+  background-image:
+    linear-gradient(
+      rgba(5, 10, 17, .55),
+      rgba(5, 10, 17, .72)
+    ),
+    url("detective-background.png");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 body::after {
@@ -51,29 +41,32 @@ body::after {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse at center, transparent 15%, #000b 100%);
+  background: radial-gradient(
+    ellipse at center,
+    transparent 20%,
+    rgba(0, 0, 0, .45) 100%
+  );
 }
 
 main {
   position: relative;
   z-index: 2;
   width: min(92%, 650px);
-  margin: 45px auto;
+  margin: 40px auto 80px;
 }
 
 .panel {
-  background: rgba(10, 19, 29, .94);
-  border: 1px solid #b99b604d;
-  box-shadow:
-    0 20px 80px #000a,
-    inset 0 0 35px #d6b77708;
+  background: rgba(10, 19, 29, .91);
+  border: 1px solid rgba(214, 183, 119, .45);
+  box-shadow: 0 20px 80px rgba(0,0,0,.75);
   padding: 32px 25px;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 }
 
 .top {
   text-align: center;
-  border-bottom: 1px solid #d6b77755;
+  border-bottom: 1px solid rgba(214,183,119,.4);
   padding-bottom: 23px;
   margin-bottom: 26px;
 }
@@ -105,7 +98,7 @@ h1 {
 
 .case {
   display: inline-block;
-  border: 1px solid #d6b77766;
+  border: 1px solid rgba(214,183,119,.5);
   padding: 9px 16px;
   color: var(--gold);
   font-size: 11px;
@@ -120,9 +113,7 @@ h1 {
   margin-bottom: 30px;
 }
 
-.question {
-  margin: 30px 0;
-}
+.question { margin: 30px 0; }
 
 .question h3 {
   font-size: 14px;
@@ -142,15 +133,15 @@ h1 {
   gap: 12px;
   padding: 14px;
   margin: 9px 0;
-  border: 1px solid #d6b77730;
-  background: #ffffff05;
+  border: 1px solid rgba(214,183,119,.2);
+  background: rgba(255,255,255,.025);
   cursor: pointer;
   font-size: 14px;
 }
 
 .suspect:has(input:checked) {
   border-color: var(--gold);
-  background: #d6b77715;
+  background: rgba(214,183,119,.1);
 }
 
 input[type="radio"] {
@@ -162,7 +153,7 @@ input[type="text"], textarea {
   width: 100%;
   padding: 14px;
   background: #060e17;
-  border: 1px solid #d6b77755;
+  border: 1px solid rgba(214,183,119,.4);
   border-radius: 0;
   color: white;
   font: inherit;
@@ -187,7 +178,7 @@ button {
   width: 100%;
   padding: 19px 10px;
   margin-top: 15px;
-  background: linear-gradient(135deg, #e6cb91, #ad8746);
+  background: linear-gradient(135deg,#e6cb91,#ad8746);
   border: none;
   color: #101720;
   font-size: 13px;
@@ -241,8 +232,8 @@ button {
 .judge {
   margin-top: 40px;
   padding: 25px 5px;
-  border-top: 1px solid #d6b77755;
-  border-bottom: 1px solid #d6b77755;
+  border-top: 1px solid rgba(214,183,119,.4);
+  border-bottom: 1px solid rgba(214,183,119,.4);
 }
 
 .judge strong {
@@ -265,17 +256,22 @@ button {
   bottom: 16px;
   right: 16px;
   z-index: 10;
-  border: 1px solid #d6b77766;
-  background: #101923ee;
+  border: 1px solid rgba(214,183,119,.5);
+  background: rgba(16,25,35,.95);
   color: var(--gold);
   padding: 12px 15px;
   font-size: 12px;
   font-family: 'DM Sans', sans-serif;
 }
 
-@media (max-width: 480px) {
+@media(max-width:480px) {
   main { margin: 20px auto 80px; }
   .panel { padding: 26px 18px; }
+
+  body {
+    background-attachment: scroll;
+    background-position: center top;
+  }
 }
 </style>
 </head>
@@ -283,6 +279,7 @@ button {
 <body>
 
 <main>
+
 <section class="panel" id="report">
 
   <header class="top">
@@ -294,9 +291,7 @@ button {
 
     <h1>THE MURDER OF<br>JOSEPH MAROUN</h1>
 
-    <div class="case">
-      CASE NO. JM-2026-0920
-    </div>
+    <div class="case">CASE NO. JM-2026-0920</div>
 
     <h2 style="font-size:16px;margin-top:25px">
       FINAL INVESTIGATION REPORT
@@ -313,8 +308,7 @@ button {
 
     <div class="question">
       <h3><span class="number">01 /</span>
-        WHO MURDERED JOSEPH MAROUN?
-      </h3>
+      WHO MURDERED JOSEPH MAROUN?</h3>
 
       <label class="suspect">
         <input type="radio" name="Murderer"
@@ -349,8 +343,7 @@ button {
 
     <div class="question">
       <h3><span class="number">02 /</span>
-        WHAT WAS THE MURDER WEAPON?
-      </h3>
+      WHAT WAS THE MURDER WEAPON?</h3>
 
       <input type="text" name="Murder Weapon"
         placeholder="Enter your conclusion..."
@@ -359,8 +352,7 @@ button {
 
     <div class="question">
       <h3><span class="number">03 /</span>
-        WHAT WAS THE MOTIVE?
-      </h3>
+      WHAT WAS THE MOTIVE?</h3>
 
       <textarea name="Motive"
         placeholder="Explain the motive behind the crime..."
@@ -369,8 +361,7 @@ button {
 
     <div class="question">
       <h3><span class="number">04 /</span>
-        ADDITIONAL FINDINGS OR COMMENTS
-      </h3>
+      ADDITIONAL FINDINGS OR COMMENTS</h3>
 
       <textarea name="Additional Findings"
         placeholder="Did you uncover anything else during your investigation?"></textarea>
@@ -388,16 +379,21 @@ button {
   <div class="footer">
     CONFIDENTIAL • FINAL INVESTIGATION
   </div>
+
 </section>
 
 <section class="panel" id="confirmation">
+
   <header class="top">
     <div class="emblem">⚖</div>
+
     <div class="overline">
       REPUBLIC OF LEBANON<br>
       CRIMINAL INVESTIGATION DIVISION
     </div>
+
     <h1>INVESTIGATION COMPLETE</h1>
+
     <div class="case">CASE NO. JM-2026-0920</div>
   </header>
 
@@ -432,32 +428,25 @@ button {
   <div class="footer">
     CASE SEALED • AWAITING JUDICIAL VERDICT
   </div>
+
 </section>
+
 </main>
 
-<button class="music" id="musicButton"
-  type="button">
+<button class="music" id="musicButton" type="button">
   ♪ Enable Investigation Music
 </button>
 
-<!-- YouTube player is hidden but controlled by JavaScript -->
 <div id="youtubePlayer"
   style="position:fixed;width:1px;height:1px;
   opacity:0;pointer-events:none;overflow:hidden">
 </div>
 
 <script>
-const FORM_ENDPOINT =
-  "https://formspree.io/f/moednjpl";
+const FORM_ENDPOINT = "https://formspree.io/f/moednjpl";
 
-const form = document.getElementById(
-  "investigationForm"
-);
-
-const submitButton = document.getElementById(
-  "submitButton"
-);
-
+const form = document.getElementById("investigationForm");
+const submitButton = document.getElementById("submitButton");
 const errorBox = document.getElementById("error");
 
 form.addEventListener("submit", async function(event) {
@@ -471,20 +460,15 @@ form.addEventListener("submit", async function(event) {
     const response = await fetch(FORM_ENDPOINT, {
       method: "POST",
       body: new FormData(form),
-      headers: {
-        "Accept": "application/json"
-      }
+      headers: { "Accept": "application/json" }
     });
 
     if (!response.ok) {
       throw new Error("Submission unsuccessful");
     }
 
-    document.getElementById("report").style.display =
-      "none";
-
-    document.getElementById("confirmation").style.display =
-      "block";
+    document.getElementById("report").style.display = "none";
+    document.getElementById("confirmation").style.display = "block";
 
     window.scrollTo(0, 0);
 
@@ -504,8 +488,7 @@ let player;
 let playerReady = false;
 let musicPlaying = false;
 
-const musicButton =
-  document.getElementById("musicButton");
+const musicButton = document.getElementById("musicButton");
 
 function onYouTubeIframeAPIReady() {
   player = new YT.Player("youtubePlayer", {
@@ -522,8 +505,6 @@ function onYouTubeIframeAPIReady() {
     events: {
       onReady: function(event) {
         playerReady = true;
-
-        // Attempt automatic playback.
         event.target.playVideo();
       },
       onStateChange: function(event) {
@@ -532,7 +513,6 @@ function onYouTubeIframeAPIReady() {
           musicButton.textContent =
             "♫ Music Playing • Tap to Mute";
         }
-
         if (event.data === YT.PlayerState.PAUSED) {
           musicPlaying = false;
           musicButton.textContent =
@@ -549,7 +529,6 @@ function onYouTubeIframeAPIReady() {
 
 function startMusic() {
   if (!playerReady || !player) return;
-
   player.unMute();
   player.setVolume(65);
   player.playVideo();
@@ -565,18 +544,14 @@ musicButton.addEventListener("click", function() {
   }
 });
 
-// If autoplay is blocked, the first interaction
-// anywhere on the page will attempt to start music.
 document.addEventListener("pointerdown", function() {
   if (!musicPlaying) startMusic();
 }, { once: true });
 
 const youtubeScript = document.createElement("script");
-youtubeScript.src =
-  "https://www.youtube.com/iframe_api";
+youtubeScript.src = "https://www.youtube.com/iframe_api";
 document.head.appendChild(youtubeScript);
 </script>
 
 </body>
 </html>
-
